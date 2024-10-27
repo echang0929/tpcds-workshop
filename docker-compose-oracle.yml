@@ -1,0 +1,33 @@
+services:
+  workdesk:
+    container_name: workdesk
+    image: ubuntu:focal
+    tty: true
+    volumes:
+      - $PWD/files:/works
+      - $PWD/shared:/shared
+      - $PWD/kept:/kept
+  # Install oracle and set up the  database.
+  oracle:
+    container_name: dbz_oracle19
+    image: oracle/database:19.3.0-ee
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+      - "2484:2484"
+    restart: always
+    environment:
+      - ORACLE_SID=ORCLCDB
+      - ORACLE_PDB=ORCLPDB1
+      - ORACLE_PWD=oraclepw
+      - ORACLE_EDITION=enterprise
+      - ORACLE_CHARACTERSET=AL32UTF8
+      - ENABLE_ARCHIVELOG=false
+      - ENABLE_FORCE_LOGGING=false
+      - ENABLE_TCPS=false
+    volumes:
+      - $PWD/data/oracle:/opt/oracle/oradata
+      - $PWD/kept/oracle/scripts:/home/oracle/scripts
+      - $PWD/kept/oracle/ddls:/home/oracle/tpcds/ddls
+      - $PWD/shared/data:/home/oracle/tpcds/data 
+      - $PWD/shared/oracle/queries:/home/oracle/tpcds/queries
