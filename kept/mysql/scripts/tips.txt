@@ -1,0 +1,5 @@
+CREATE INDEX idx_ss_customer_sk ON store_sales(ss_customer_sk);
+CREATE INDEX idx_ws_bill_customer_sk ON web_sales(ws_bill_customer_sk);
+CREATE INDEX idx_cs_ship_customer_sk ON catalog_sales(cs_ship_customer_sk);
+
+

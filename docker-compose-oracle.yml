@@ -1,13 +1,4 @@
 services:
-  workdesk:
-    container_name: workdesk
-    image: ubuntu:focal
-    tty: true
-    volumes:
-      - $PWD/files:/works
-      - $PWD/shared:/shared
-      - $PWD/kept:/kept
-  # Install oracle and set up the  database.
   oracle:
     container_name: dbz_oracle19
     image: oracle/database:19.3.0-ee

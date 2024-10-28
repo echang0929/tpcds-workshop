@@ -1,0 +1,9 @@
+services:
+  workdesk:
+    container_name: workdesk
+    image: ubuntu:focal
+    tty: true
+    volumes:
+      - $PWD/files:/works
+      - $PWD/shared:/shared
+      - $PWD/kept:/kept

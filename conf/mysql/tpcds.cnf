@@ -1,0 +1,11 @@
+[mysqld]
+tmp_table_size= 2000M
+max_heap_table_size= 2000M
+#max_tmp_tables=300
+innodb_buffer_pool_size= 6000M
+
+# sort_buffer_size=10M 
+# read_buffer_size=10M 
+# table_open_cache=8000
+# query_cache_limit=50M
+# join_buffer=10M

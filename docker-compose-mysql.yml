@@ -1,0 +1,25 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tpcds
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypswd
+    ports:
+      - 3306:3306
+    volumes:
+      - $PWD/data/mysql:/var/lib/mysql
+      - $PWD/conf/mysql:/etc/mysql/conf.d
+      - $PWD/kept/mysql/scripts:/scripts
+      - $PWD/kept/mysql/ddls:/tpcds/ddls
+      - $PWD/shared/data:/tpcds/data 
+      - $PWD/shared/mysql/queries:/tpcds/queries
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8089:8080

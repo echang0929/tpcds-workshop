@@ -18,7 +18,7 @@ mkdir files shared
 #~~~~~ Download TPC-DS package: https://www.tpc.org/tpc_documents_current_versions/current_specifications5.asp
 cp ~/Downloads/5DAA63D1-0F8F-4FC3-9A66-8F18899EF1B5-TPC-DS-Tool.zip ./files/
 
-docker compose -f docker-compose-tpcds.yml up -d --wait
+docker compose -f docker-compose-tpcds-oracle.yml up -d --wait
 
 #--------------------------------------------------------------
 ### Work in workdesk(ubuntu) container 
