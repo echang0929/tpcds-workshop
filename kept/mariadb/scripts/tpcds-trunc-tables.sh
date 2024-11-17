@@ -1,8 +1,8 @@
 #!/bin/bash
 
-MYSQL_USER=myuser
-MYSQL_PSWD=mypswd
-MYSQL_DBMS=tpcds
+MARIADB_USER=myuser
+MARIADB_PSWD=mypswd
+MARIADB_DBMS=tpcds
 
 pushd /tpcds/data/
 
@@ -16,7 +16,7 @@ rm -f results.txt
 for tname in "${tables[@]}"
 do
 
-mysql -u$MYSQL_USER -p$MYSQL_PSWD -D$MYSQL_DBMS --local_infile=1 <<EOF
+mariadb -u$MARIADB_USER -p$MARIADB_PSWD -D$MARIADB_DBMS --local_infile=1 <<EOF
 SET FOREIGN_KEY_CHECKS = 0;
 truncate table $tname;
 SET FOREIGN_KEY_CHECKS = 1;

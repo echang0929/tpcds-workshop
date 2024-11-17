@@ -22,3 +22,11 @@ services:
       - $PWD/kept/oracle/ddls:/home/oracle/tpcds/ddls
       - $PWD/shared/data:/home/oracle/tpcds/data 
       - $PWD/shared/oracle/queries:/home/oracle/tpcds/queries
+  workdesk:
+    container_name: workdesk
+    image: ubuntu:focal
+    tty: true
+    volumes:
+      - $PWD/files:/works
+      - $PWD/shared:/shared
+      - $PWD/kept:/kept

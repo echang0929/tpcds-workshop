@@ -23,7 +23,6 @@ do
 
 mysql -u$MYSQL_USER -p$MYSQL_PSWD -D$MYSQL_DBMS --local_infile=1 <<EOF
 SET FOREIGN_KEY_CHECKS = 0;
-truncate table $tname;
 load data local infile '/tmp/$tname.dat' replace into table $tname character set latin1 fields terminated by '|' lines terminated by '|\n';
 SET FOREIGN_KEY_CHECKS = 1;
 EOF

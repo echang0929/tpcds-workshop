@@ -15,6 +15,7 @@ tables=(date_dim time_dim call_center catalog_page item promotion warehouse ship
 rm -f results.txt
 for tname in "${tables[@]}"
 do
+  echo "#### $tname" | tee -a results.txt
 
 mysql -u$MYSQL_USER -p$MYSQL_PSWD -D$MYSQL_DBMS --local_infile=1 <<EOF
 SET FOREIGN_KEY_CHECKS = 0;
@@ -22,6 +23,7 @@ truncate table $tname;
 SET FOREIGN_KEY_CHECKS = 1;
 EOF
 
+  echo "from $s_start_time - to $s_end_time - elapsed: $elapsed" | tee -a results.txt
 done
 
 popd

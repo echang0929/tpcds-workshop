@@ -1,8 +1,9 @@
 #!/bin/bash
+export LC_ALL=C
 
-MYSQL_USER=myuser
-MYSQL_PSWD=mypswd
-MYSQL_DBMS=tpcds
+MARIADB_USER=myuser
+MARIADB_PSWD=mypswd
+MARIADB_DBMS=tpcds
 
 pushd /tpcds/data/
 
@@ -15,13 +16,24 @@ tables=(date_dim time_dim call_center catalog_page item promotion warehouse ship
 rm -f results.txt
 for tname in "${tables[@]}"
 do
+  echo "#### $tname" | tee -a results.txt
+  awk -F"|" '{for(i=1;i<NF;i++){ if(length($i)==0) printf "\\N|"; else printf "%s|",$i;} printf "\n";}' $tname.dat > /tmp/$tname.dat
 
-mysql -u$MYSQL_USER -p$MYSQL_PSWD -D$MYSQL_DBMS --local_infile=1 <<EOF
+  c_start_time=$(date +%s)
+  s_start_time=$(TZ=UTC-8 date -d @$c_start_time +'%F %T %Z %z')
+
+mariadb -u$MARIADB_USER -p$MARIADB_PSWD -D$MARIADB_DBMS --local_infile=1 <<EOF
 SET FOREIGN_KEY_CHECKS = 0;
-truncate table $tname;
+load data local infile '/tmp/$tname.dat' replace into table $tname character set latin1 fields terminated by '|' lines terminated by '|\n';
 SET FOREIGN_KEY_CHECKS = 1;
 EOF
 
+  c_end_time=$(date +%s)
+  s_end_time=$(TZ=UTC-8 date -d @$c_end_time +'%F %T %Z %z')
+  elapsed=$(( c_end_time - c_start_time ))
+
+  rm -f /tmp/$tname.dat 
+  echo "from $s_start_time - to $s_end_time - elapsed: $elapsed" | tee -a results.txt
 done
 
 popd

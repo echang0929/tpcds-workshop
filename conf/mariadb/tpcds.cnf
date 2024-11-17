@@ -1,0 +1,15 @@
+[mariadb]
+## https://mariadb.com/kb/en/identifier-case-sensitivity/
+## 0:Unix-based systems, 1:Windows, 2:Mac OS X 
+lower_case_table_names= 2
+
+tmp_table_size= 2000M
+max_heap_table_size= 2000M
+innodb_buffer_pool_size= 6000M
+#max_tmp_tables=300
+
+# sort_buffer_size=10M
+# read_buffer_size=10M
+# table_open_cache=8000
+# query_cache_limit=50M
+# join_buffer=10M

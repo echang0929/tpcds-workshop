@@ -1,0 +1,27 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: tpcds
+      MARIADB_USER: myuser
+      MARIADB_PASSWORD: mypswd
+    ports:
+      - 3306:3306
+    volumes:
+      - $PWD/data/mariadb:/var/lib/mysql
+      - $PWD/conf/mariadb:/etc/mysql/conf.d
+      - $PWD/kept/mariadb/scripts:/scripts
+      - $PWD/kept/mariadb/ddls:/tpcds/ddls
+      - $PWD/shared/data:/tpcds/data 
+      - $PWD/shared/mariadb/queries:/tpcds/queries
+  workdesk:
+    container_name: workdesk
+    image: ubuntu:focal
+    tty: true
+    volumes:
+      - $PWD/files:/works
+      - $PWD/shared:/shared
+      - $PWD/kept:/kept
